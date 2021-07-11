@@ -9,6 +9,7 @@ import pl.dmuszynski.reviewit.model.user.AuthorityType;
 import pl.dmuszynski.reviewit.model.user.User;
 import pl.dmuszynski.reviewit.repository.user.AuthorityRepository;
 import pl.dmuszynski.reviewit.repository.user.UserRepository;
+import pl.dmuszynski.reviewit.service.user.AuthorityService;
 import pl.dmuszynski.reviewit.service.user.RegisterService;
 
 import java.util.Collections;
@@ -18,20 +19,28 @@ import java.util.Set;
 public class RegisterServiceImpl implements RegisterService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AuthorityRepository authorityRepository;
+    private final AuthorityService authorityService;
 
     @Autowired
     public RegisterServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                               AuthorityRepository authorityRepository) {
+                               AuthorityService authorityService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.authorityRepository = authorityRepository;
+        this.authorityService = authorityService;
     }
 
     @Override
     public void signUp(SignUpRequestDto signUpDetails) {
         final String encodedPassword = this.passwordEncoder.encode(signUpDetails.getPassword());
-        //final Set<Authority> authorities = Collections.singleton(this.authorityRepository.findByAuthorityType(AuthorityType.USER).orE);
-        //this.userRepository.save(new User.Builder(signUpDetails.getEmail(), signUpDetails.getUsername(), encodedPassword))
+        final Set<Authority> authorities = Collections.singleton(this.authorityService
+                .findByAuthorityType(AuthorityType.USER));
+
+        this.userRepository.save(new User.Builder(signUpDetails.getEmail(), signUpDetails.getUsername(),
+                encodedPassword, authorities).build());
     }
+
+//    @Override
+//    public void activateAccountByTokenValue(String tokenValue) {
+//
+//    }
 }
