@@ -1,0 +1,9 @@
+### Register
+POST http://localhost:8080/review-it/account/sign-up
+Content-Type: application/json
+
+{
+  "email": "email",
+  "username" : "username",
+  "password" : "password"
+}
