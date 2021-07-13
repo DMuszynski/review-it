@@ -3,6 +3,8 @@ package pl.dmuszynski.reviewit.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,18 +20,24 @@ import pl.dmuszynski.reviewit.security.jwt.JwtTokenFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
     private final JwtTokenFilter filter;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsService userDetailsService, JwtTokenFilter filter) {
-        this.userDetailsService = userDetailsService;
+    public WebSecurityConfig(JwtTokenFilter filter, UserDetailsService userDetailsService) {
         this.filter = filter;
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
