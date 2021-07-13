@@ -28,4 +28,16 @@ public class JwtResponseDto {
         this.accessToken = builder.accessToken;
         this.authorities = builder.authorities;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public Set<String> getAuthorities() {
+        return authorities;
+    }
 }

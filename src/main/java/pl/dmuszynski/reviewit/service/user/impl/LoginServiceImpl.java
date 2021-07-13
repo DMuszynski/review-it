@@ -13,6 +13,7 @@ import pl.dmuszynski.reviewit.model.user.User;
 import pl.dmuszynski.reviewit.security.jwt.JwtTokenUtils;
 import pl.dmuszynski.reviewit.service.user.LoginService;
 
+import javax.transaction.Transactional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class LoginServiceImpl implements LoginService {
         this.authenticationManager = authenticationManager;
     }
 
+    @Transactional
     @Override
     public JwtResponseDto signIn(SignInRequestDto signInDetails) {
         final Authentication authentication = this.authenticationManager.authenticate(
@@ -38,6 +40,7 @@ public class LoginServiceImpl implements LoginService {
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
         final String accessToken = jwtUtils.generateJwtToken(authentication);
 
+        System.out.println(authorities);
         return new JwtResponseDto.Builder(userPrincipal.getUsername(), accessToken, authorities)
                 .build();
     }
