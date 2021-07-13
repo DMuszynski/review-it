@@ -15,6 +15,7 @@
     <description>Movie discovery and review - Web application</description>
 
     <properties>
+        <java.jwt.version>3.18.1</java.jwt.version>
         <springfox.swagger.version>3.0.0</springfox.swagger.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -47,6 +48,11 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>${springfox.swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${java.jwt.version}</version>
         </dependency>
 
         <dependency>
