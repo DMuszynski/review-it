@@ -5,7 +5,7 @@
     <artifactId>review-it-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>review-it-api</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Movie discovery and review - Backend part of web application</description>
     <parent>
         <artifactId>review-it</artifactId>
         <groupId>pl.dmuszynski</groupId>

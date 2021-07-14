@@ -19,7 +19,7 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: reviewit
-      MYSQL_USER: user
+      MYSQL_USER: reviewituser
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: root
     ports:
