@@ -1,0 +1,26 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: '3.8'
+# Docker services
+services:
+  # App backend service
+  review-it-api:
+    build: review-it-api
+    ports:
+      - "7000:7000"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/reviewit?useUnicode=true&serverTimezone=UTC
+    depends_on:
+      - db
+
+  # Database Service (Mysql)
+  db:
+    container_name: "mysql"
+    image: mysql:8.0.25
+    restart: always
+    environment:
+      MYSQL_DATABASE: reviewit
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
