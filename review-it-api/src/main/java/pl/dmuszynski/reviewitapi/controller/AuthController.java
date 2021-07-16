@@ -2,6 +2,7 @@ package pl.dmuszynski.reviewitapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ import pl.dmuszynski.reviewitapi.service.user.RegisterService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/review-it/account")
+@RequestMapping(path = "/review-it/account", produces = { MediaType.APPLICATION_JSON_VALUE })
 public class AuthController {
     private final LoginService loginService;
     private final RegisterService registerService;
